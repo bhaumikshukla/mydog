@@ -25,7 +25,6 @@ class MyHandler(FileSystemEventHandler):
     def mail(self, path, matched):
         cur_time = time.strftime("%d-%b-%Y %I:%M:%S%p")
         bodytext = "Someone possibly accessed the laptop at " + str(cur_time) + "\n" + " Matched keywords: " + str(matched)
-        request_url = 'https://api:key-cc58abd5f7f69e67775a6bfb5bc0de02@api.mailgun.net/v3/mg.buysmthing.com/messages'
         subject = 'Laptop unlocked/accessed at ' + str(cur_time)
 
         sendmail(toaddr=EMAIL_TO, body=bodytext, subject=subject, file=path) # send file=None if you don't want to send an attachment
