@@ -58,5 +58,6 @@ sudo systemctl start mydog
 ```
 
 ENJOY.  You will get Email with Picture of a person attached who accessed your laptop/machine 
+![Email Snapshot](http://bshukla.com/email-snapshot.png)
 
 
