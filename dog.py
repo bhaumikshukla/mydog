@@ -21,6 +21,14 @@ configParser.read(configFilePath)
 # Sends email to
 EMAIL_TO = configParser.get('config','EMAIL_TO')
 
+# Pic setting, 
+# 0: Do not take pictures, 
+# 1: Take pictures & attach in email, 
+# 2: Take pictures but this will not attach in email (store locally under /tmp/)
+PIC_SETTING = configParser.get('config','PIC_SETTING')
+# Send email, true if you want to send email, false won't trigger email, however it stores pictures locally in /tmp/ dir whoever accessed the laptop/machine
+SEND_EMAIL = configParser.get('config','SEND_EMAIL')
+
 class MyHandler(FileSystemEventHandler):
     def mail(self, path, matched):
         cur_time = time.strftime("%d-%b-%Y %I:%M:%S%p")
@@ -38,6 +46,7 @@ class MyHandler(FileSystemEventHandler):
         imgpath = "/tmp/image_"+ stamp + ".png"
     	cv2.imwrite(imgpath, image)
     	del(camera)  # so that others can use the camera as soon as possible
+        print "Image created"
         return imgpath
     def readingfromfile(self, file):
         line = None
@@ -64,9 +73,16 @@ class MyHandler(FileSystemEventHandler):
                     matchedkw.append(ele) 
         if flag is True:
             imgpath=None
-            imgpath = self.camcapture()
-            if imgpath is not None:
+            if PIC_SETTING == "1" or PIC_SETTING == "2":
+                imgpath = self.camcapture()
+            if SEND_EMAIL == "true":
+                if PIC_SETTING == "2":
+                    print "Image will not be attached"
+                    imgpath = None # this will not attach in email
                 self.mail(imgpath, matchedkw)
+            else:
+                print "Email will not be sent. Change settings in config.cfg"
+
 
 
 
