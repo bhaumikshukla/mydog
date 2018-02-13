@@ -28,8 +28,14 @@ YOUR_EMAIL_PASSWORD=PASSWORD
 EMAIL_TO=example@email.com
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
+PIC_SETTING=1
+SEND_EMAIL=true
 ```
-
+#### Options
+```
+PIC_SETTING 0: Do not take pictures, 1: Take pictures & attach in email, 2: Take pictures but this will not attach in email (store locally under /tmp/)
+SEND_EMAIL true: for sending email on events, false won't send any email for the event
+```
 
 ## RUN
 You can simply run as python application.
